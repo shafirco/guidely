@@ -9,8 +9,10 @@ from guidely.domain.rules.trends import is_not_rising
 
 def _session(progress: ProgressMark, days_ago: int) -> Session:
     return Session(
+        id="test",
         occurred_at=datetime.now(timezone.utc) - timedelta(days=days_ago),
         progress_mark=progress,
+        description="test",
     )
 
 

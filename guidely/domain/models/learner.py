@@ -14,6 +14,8 @@ class Learner:
     describing their progress trajectory.
     """
     name: str
+    description: str = ""
+    important_notes: str = ""
     sessions: Tuple[Session, ...] = field(default_factory=tuple)
 
     def __post_init__(self) -> None:
@@ -29,5 +31,7 @@ class Learner:
         """
         return Learner(
             name=self.name,
+            description=self.description,
+            important_notes=self.important_notes,
             sessions=self.sessions + (session,)
         )
