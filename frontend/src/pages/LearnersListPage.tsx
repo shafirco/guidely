@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { clsx } from 'clsx'
+import { Trash2 } from 'lucide-react'
 
 import { api } from '../lib/api'
 import type { CreateLearnerResponse, ListLearnersResponse } from '../lib/types'
@@ -41,6 +42,15 @@ export function LearnersListPage() {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['learners'] })
       createLearnerForm.reset({ learnerId: '' })
+    },
+  })
+
+  const deleteLearner = useMutation({
+    mutationFn: async (name: string) => {
+      await api.delete(`/learners/${encodeURIComponent(name)}`)
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['learners'] })
     },
   })
 
@@ -125,22 +135,39 @@ export function LearnersListPage() {
             filtered.map((l) => {
               const last = l.sessions[l.sessions.length - 1]
               return (
-                <Link
+                <div
                   key={l.name}
-                  to={`/learners/${encodeURIComponent(l.name)}`}
-                  className="block rounded-2xl border border-zinc-800 bg-zinc-950/20 p-4 hover:border-zinc-700 hover:bg-zinc-950/30"
+                  className="group relative rounded-2xl border border-zinc-800 bg-zinc-950/20 hover:border-zinc-700 hover:bg-zinc-950/30"
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="truncate text-sm font-semibold text-zinc-100">{l.name}</div>
-                      <div className="mt-1 text-xs text-zinc-400">
-                        {l.sessions.length} שיעורים
-                        {last ? ` • אחרון: ${formatDateTime(last.occurred_at)}` : ''}
+                  <Link
+                    to={`/learners/${encodeURIComponent(l.name)}`}
+                    className="block p-4"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="truncate text-sm font-semibold text-zinc-100">{l.name}</div>
+                        <div className="mt-1 text-xs text-zinc-400">
+                          {l.sessions.length} שיעורים
+                          {last ? ` • אחרון: ${formatDateTime(last.occurred_at)}` : ''}
+                        </div>
                       </div>
+                      <Sparkline points={l.trend ?? []} width={220} height={64} />
                     </div>
-                    <Sparkline points={l.trend ?? []} width={220} height={64} />
-                  </div>
-                </Link>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      if (confirm(`למחוק את התלמיד "${l.name}" וכל השיעורים שלו?`)) {
+                        deleteLearner.mutate(l.name)
+                      }
+                    }}
+                    className="absolute left-3 top-3 opacity-0 group-hover:opacity-100 transition-opacity rounded-md border border-transparent p-1.5 text-zinc-400 hover:text-red-400 hover:border-zinc-700"
+                    title="מחק תלמיד"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
               )
             })
           )}

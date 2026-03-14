@@ -2,6 +2,7 @@ import { Route, Routes, Navigate, Link } from 'react-router-dom'
 import { HomePage } from './pages/HomePage'
 import { LearnersListPage } from './pages/LearnersListPage'
 import { LearnerDetailPage } from './pages/LearnerDetailPage'
+import { QuizPage } from './pages/QuizPage'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/learners" element={<LearnersListPage />} />
           <Route path="/learners/:learnerId" element={<LearnerDetailPage />} />
+          <Route path="/learners/:learnerId/quiz" element={<QuizPage />} />
         </Routes>
       </main>
 

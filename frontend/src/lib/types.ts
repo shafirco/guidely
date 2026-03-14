@@ -45,3 +45,29 @@ export type RenameLearnerResponse = {
   learner: LearnerDTO
 }
 
+// Quiz types
+
+export type ChoiceDTO = {
+  label: string
+  text: string
+  is_correct: boolean
+}
+
+export type QuestionDTO = {
+  question_text: string
+  topic: string
+  difficulty: 'medium' | 'hard'
+  choices: ChoiceDTO[]
+  explanation: string
+}
+
+export type QuizDTO = {
+  learner_name: string
+  summary: string
+  questions: QuestionDTO[]
+}
+
+export type GenerateQuizResponse = {
+  quiz: QuizDTO
+}
+

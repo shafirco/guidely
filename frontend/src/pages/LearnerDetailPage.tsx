@@ -15,7 +15,7 @@ import type {
 import { Sparkline } from '../components/Sparkline'
 import { formatDateTime } from '../lib/format'
 import { dateTimeLocalToIso, toDateTimeLocalValue } from '../lib/datetime'
-import { ChevronRight, Trash2 } from 'lucide-react'
+import { ChevronRight, Trash2, BookOpen } from 'lucide-react'
 
 const progressOptions: Array<{ value: ProgressMark; label: string; tone: string }> = [
   { value: 'progress', label: 'התקדמות', tone: 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/30' },
@@ -165,6 +165,15 @@ export function LearnerDetailPage() {
           <ChevronRight className="h-4 w-4" />
           חזרה לרשימה
         </Link>
+        {learner && learner.sessions.length > 0 && (
+          <Link
+            to={`/learners/${encodeURIComponent(learnerId ?? '')}/quiz`}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-3 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-white"
+          >
+            <BookOpen className="h-4 w-4" />
+            צור מבחן
+          </Link>
+        )}
       </div>
 
       <section className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
