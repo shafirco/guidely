@@ -9,10 +9,9 @@ app = FastAPI(title="Guidely", version="0.1.0")
 # CORS (so a separate frontend can call the API from the browser)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # Vite dev server
-        "http://127.0.0.1:5173",
-    ],
+    # For this learning project we allow all origins so that both local dev
+    # and the deployed frontend (Render static site) can call the API.
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
