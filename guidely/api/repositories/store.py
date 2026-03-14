@@ -1,9 +1,9 @@
-from guidely.api.repositories.in_memory import (
-    InMemoryLearnerRepository,
-    InMemorySessionRepository,
+from guidely.api.repositories.postgres import (
+    PostgresLearnerRepository,
+    PostgresSessionRepository,
 )
 
-# Module-level singletons so all routers share the same in-memory state.
-learner_repository = InMemoryLearnerRepository()
-session_repository = InMemorySessionRepository()
+# Module-level singletons so all routers share the same DB-backed repositories.
+learner_repository = PostgresLearnerRepository()
+session_repository = PostgresSessionRepository()
 

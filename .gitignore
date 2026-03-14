@@ -1,7 +1,14 @@
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+
 .env
 .venv/
 .idea/
 .vscode/
 .pytest_cache/
+
+# Frontend build artifacts (Render builds from source)
+frontend/dist/
+node_modules/

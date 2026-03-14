@@ -19,7 +19,16 @@ class LearnerRepository(ABC):
 
     @abstractmethod
     def list_all(self) -> Sequence[Learner]:
+        pass
+
+    @abstractmethod
+    def update(self, learner_id: str, learner: Learner) -> None:
         """
-        Returns all learners currently in the system.
+        Updates an existing learner. If the name changed, handles the rename
+        atomically (including re-pointing any related sessions).
         """
+        pass
+
+    @abstractmethod
+    def delete(self, learner_id: str) -> None:
         pass

@@ -1,8 +1,5 @@
 """
 API routes package.
 
-Routers are defined in individual modules (e.g. sessions) and included by
-`guidely.api.main:app`.
+Routers are defined in individual modules and included by ``guidely.api.main``.
 """
-
-

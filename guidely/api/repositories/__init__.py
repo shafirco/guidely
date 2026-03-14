@@ -1,8 +1,5 @@
 """
-API-local repository implementations.
+Repository implementations that satisfy application-layer ports.
 
-These are temporary in-memory fakes used to wire the API to application use
-cases without a real database.
+Currently wired to PostgreSQL (see ``postgres.py`` and ``store.py``).
 """
-
-
